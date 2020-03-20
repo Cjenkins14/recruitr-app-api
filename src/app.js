@@ -40,9 +40,7 @@ app.use(function errorHandler(error, req, res, next) {
 
 app.get('/', (req, res) => {
     res.send('Hello, world!')
-    res.header(
-        'Authorization': 'Bearer cac1bbda-ec81-4245-aa4f-b0429d7a3fce '
-    )
+
 })
 
 module.exports = app
