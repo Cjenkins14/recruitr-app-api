@@ -6,7 +6,6 @@ const helmet = require('helmet')
 const schoolRouter = require('./Schools/school-router')
 const { NODE_ENV } = require('./config')
 const { CLIENT_ORIGIN } = require('./config');
-
 const app = express()
 
 const morganOption = (NODE_ENV === 'production')
@@ -40,7 +39,7 @@ app.use(function errorHandler(error, req, res, next) {
         response = { error: { message: 'server error' } }
     } else {
         console.log(error)
-        response = { error }
+        response = { error: { message: error.message } }
     }
     res.status(500).json(response)
 })
