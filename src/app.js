@@ -30,7 +30,7 @@ app.use(cors({
 // next()
 // })
 
-app.use('/', schoolRouter)
+app.use('/school', schoolRouter)
 
 
 app.use(function errorHandler(error, req, res, next) {
