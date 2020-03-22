@@ -67,4 +67,51 @@ describe('School endpoints', function () {
             })
         })
     })
+
+    describe('POST /school/:shool_id', () => {
+        const testSchools = makeSchoolsArray()
+
+        before('insert schools', () => {
+            return db
+                .into('schools')
+                .insert(testSchools)
+        })
+
+        it('creates a schools, responds with 201 and new school', () => {
+            const newSchool = {
+                name: 'post test school'
+            }
+
+            return supertest(app)
+                .post('/school')
+                .send(newSchool)
+                .expect(201)
+                .expect(res => {
+                    expect(res.body.name).to.eql(newSchool.name)
+                })
+                .then(res => {
+                    supertest(app)
+                        .get(`/school/${res.body.id}`)
+                        .expect(res.body)
+                })
+        })
+
+        const missingField = {
+            id: 9,
+            // name: null
+        }
+        it('responds with 400 and an error message when missing name', () => {
+            before('insert school', () => {
+                return db
+                    .into('schools')
+                    .insert(missingField)
+            })
+
+            return supertest(app)
+                .post('/school')
+                .send(missingField)
+                .expect(400, { error: { message: 'Missing school name in request body' } })
+        })
+    })
 })
+

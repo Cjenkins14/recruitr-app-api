@@ -65,5 +65,15 @@ schoolRouter
             name: school.name
         })
     })
+    .delete((req, res, next) => {
+        SchoolService.deleteSchool(
+            req.app.get('db'),
+            req.params.school_id
+        )
+            .then(numRowsAffected => {
+                res.status(204).end()
+            })
+            .catch(next)
+    })
 
 module.exports = schoolRouter;

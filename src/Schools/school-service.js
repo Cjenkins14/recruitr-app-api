@@ -12,6 +12,13 @@ const SchoolService = {
     },
     getById(knex, id) {
         return knex.from('schools').select('*').where('id', id).first()
+    },
+    deleteSchool(knex, id) {
+        return knex('schools')
+            .where({
+                id
+            })
+            .delete()
     }
 }
 
