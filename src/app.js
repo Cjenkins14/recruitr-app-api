@@ -4,6 +4,7 @@ const morgan = require('morgan')
 const cors = require('cors')
 const helmet = require('helmet')
 const schoolRouter = require('./Schools/school-router')
+const playerRouter = require('./Player/player-router')
 const { NODE_ENV } = require('./config')
 const { CLIENT_ORIGIN } = require('./config');
 const app = express()
@@ -31,7 +32,7 @@ app.use(cors({
 // })
 
 app.use('/school', schoolRouter)
-
+app.use('/player', playerRouter)
 
 app.use(function errorHandler(error, req, res, next) {
     let response

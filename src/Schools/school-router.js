@@ -17,6 +17,8 @@ schoolRouter
             })
             .catch(next)
     })
+schoolRouter
+    .route('/add')
     .post(jsonParser, (req, res, next) => {
         const { name } = req.body
         const newSchool = {

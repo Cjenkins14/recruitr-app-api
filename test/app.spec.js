@@ -1,6 +1,6 @@
 const app = require('../src/app')
 const knex = require('knex')
-const { makeSchoolsArray } = require('./school.fixtures')
+const { makeSchoolsArray, makePlayersArray } = require('./school.fixtures')
 
 describe('School endpoints', function () {
     db = knex({
@@ -68,7 +68,7 @@ describe('School endpoints', function () {
         })
     })
 
-    describe('POST /school/:shool_id', () => {
+    describe('POST /school/add', () => {
         const testSchools = makeSchoolsArray()
 
         before('insert schools', () => {
@@ -83,7 +83,7 @@ describe('School endpoints', function () {
             }
 
             return supertest(app)
-                .post('/school')
+                .post('/school/add')
                 .send(newSchool)
                 .expect(201)
                 .expect(res => {
@@ -108,10 +108,68 @@ describe('School endpoints', function () {
             })
 
             return supertest(app)
-                .post('/school')
+                .post('/school/add')
                 .send(missingField)
                 .expect(400, { error: { message: 'Missing school name in request body' } })
         })
     })
 })
 
+describe('Player endpoints', () => {
+    let db
+
+    before('make knex instance', () => {
+        db = knex({
+            client: 'pg',
+            connection: process.env.TEST_DB_URL
+        })
+        app.set('db', db)
+    })
+
+    after('disconnect from db', () => db.destroy())
+    beforeEach('clean the table', () => db.raw('TRUNCATE schools, player_info RESTART IDENTITY CASCADE;'))
+    afterEach('cleanup', () => db.raw('TRUNCATE schools, player_info RESTART IDENTITY CASCADE;'))
+
+    describe('GET /player', () => {
+        context('Given no players', () => {
+            it('responds with 200 and an empty list', () => {
+                return supertest(app)
+                    .get('/player')
+                    .expect(200, [])
+            })
+        })
+
+        // context('Given there are players', () => {
+        // const testSchools = makeSchoolsArray()
+        // const testPlayers = makePlayersArray()
+        // 
+        // before('insert schools, then players', () => {
+        // return db
+        // .into('schools')
+        // .insert(testSchools)
+        // .then(() => {
+        // return db
+        // .into('player_info')
+        // .insert(testPlayers)
+        // })
+        // })
+        // it('responds with 200 and all the players', () => {
+        // return supertest(app)
+        // .get('/player')
+        // .expect(200, testPlayers)
+        // })
+        // })
+
+    })
+
+    describe('GET /:player_id', () => {
+        context('Given no players', () => {
+            it('responds with 404', () => {
+                const playerId = 1234
+                return supertest(app)
+                    .get(`/player/${playerId}`)
+                    .expect(404)
+            })
+        })
+    })
+})
