@@ -187,14 +187,69 @@ describe('Player endpoints', () => {
                             .then(() => done())
                     })
             })
-            it('responds with 200 and the player', () => {
-                const playerId = 1
-                const expectedPlayer = testPlayers[playerId - 1]
+            // it('responds with 200 and the player', () => {
+            // const playerId = 1
+            // const expectedPlayer = testPlayers[playerId - 1]
+            // 
+            // return supertest(app)
+            // .get(`/player/${playerId}`)
+            // .expect(200, expectedPlayer)
+            // })
+        })
+    })
 
-                return supertest(app)
-                    .get(`/player/${playerId}`)
-                    .expect(200, expectedPlayer)
-            })
+    describe.only('POST /player', () => {
+        const testSchools = makeSchoolsArray()
+        const testPlayers = makePlayersArray()
+
+        before('insert schools', (done) => {
+            db
+                .into('schools')
+                .insert(testSchools)
+                .then(() => done())
+        })
+        it('Creates a new player repsonding with 201 and player', () => {
+            const newPlayer = {
+                name: "Babe Ruth",
+                graddate: 1913,
+                position: "Center Field",
+                batthrow: "Bat",
+                date: "2020-03-20T05:00:00.000Z",
+                phone: 9725555555,
+                url: "https://www.youtube.com/watch?v=7WfVREOHaAk",
+                dash: 3,
+                platefirst: 3,
+                turntime: 3,
+                exitvelo: 3,
+                poptime: 3,
+                notes: 'note',
+                schoolid: 3
+            }
+
+            return supertest(app)
+                .post('/player')
+                .send(newPlayer)
+                .expect(201)
+                .expect(res => {
+                    expect(res.body.name).to.eql(newPlayer.name)
+                    expect(res.body.graddate).to.eql(newPlayer.graddate)
+                    expect(res.body.position).to.eql(newPlayer.position)
+                    expect(res.body.batthrow).to.eql(newPlayer.batthrow)
+                    expect(res.body.date).to.eql(newPlayer.date)
+                    expect(res.body.phone).to.eql(newPlayer.phone)
+                    expect(res.body.url).to.eql(newPlayer.url)
+                    expect(res.body.dash).to.eql(newPlayer.dash)
+                    expect(res.body.platefirst).to.eql(newPlayer.platefirst)
+                    expect(res.body.turntime).to.eql(newPlayer.turntime)
+                    expect(res.body.exitvelo).to.eql(newPlayer.exitvelo)
+                    expect(res.body.poptime).to.eql(newPlayer.poptime)
+                    expect(res.body.schoolid).to.eql(newPlayer.schoolid)
+                })
+                .then(res =>
+                    supertest(app)
+                        .get(`/player/${res.body.id}`)
+                        .expect(res.body)
+                )
         })
     })
 })

@@ -39,8 +39,11 @@ playerRouter
             position,
             batthrow,
             date,
-            phone,
-            url,
+            dash,
+            platefirst,
+            turntime,
+            exitvelo,
+            poptime
         } = req.body
         const newPlayer = {
             name,
@@ -48,8 +51,11 @@ playerRouter
             position,
             batthrow,
             date,
-            phone,
-            url,
+            dash,
+            platefirst,
+            turntime,
+            exitvelo,
+            poptime,
             schoolid
         }
         for (const [key, value] of Object.entries(newPlayer))

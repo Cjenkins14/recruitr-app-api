@@ -9,12 +9,12 @@ CREATE TABLE player_info (
     date DATE NOT NULL DEFAULT NOW(),
     phone TEXT NOT NULL,
     url TEXT NOT NULL,
-    dash INTEGER, 
-    platefirst INTEGER,
-    turntime INTEGER,
-    exitvelo INTEGER,
-    poptime INTEGER,
-    notes TEXT
+    dash INTEGER NOT NULL, 
+    platefirst INTEGER NOT NULL,
+    turntime INTEGER NOT NULL,
+    exitvelo INTEGER NOT NULL,
+    poptime INTEGER NOT NULL,
+    notes TEXT NOT NULL
 );
 
 ALTER TABLE player_info
