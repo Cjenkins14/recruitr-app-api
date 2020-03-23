@@ -171,5 +171,30 @@ describe('Player endpoints', () => {
                     .expect(404)
             })
         })
+
+        context('Given there are players', () => {
+            const testSchools = makeSchoolsArray()
+            const testPlayers = makePlayersArray()
+
+            beforeEach('insert schools, players', (done) => {
+                db
+                    .into('schools')
+                    .insert(testSchools)
+                    .then(() => {
+                        db
+                            .into('player_info')
+                            .insert(testPlayers)
+                            .then(() => done())
+                    })
+            })
+            it('responds with 200 and the player', () => {
+                const playerId = 1
+                const expectedPlayer = testPlayers[playerId - 1]
+
+                return supertest(app)
+                    .get(`/player/${playerId}`)
+                    .expect(200, expectedPlayer)
+            })
+        })
     })
 })

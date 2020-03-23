@@ -3,7 +3,7 @@ const PlayerService = {
         return knex.select('*').from('player_info')
     },
     getById(knex, id) {
-        return knex.from('player_info').select('*').where('playerid', id)
+        return knex.from('player_info').select('*').where('playerid', id).first()
     },
     insertPlayer(knex, newPlayer) {
         return knex
@@ -14,16 +14,12 @@ const PlayerService = {
     },
     deletePlayer(knex, id) {
         return knex('player_info')
-            .where({
-                id
-            })
+            .where('playerid', id)
             .delete()
     },
     updatePlayer(knex, id, newPlayerFields) {
         return knex('player_info')
-            .where({
-                id
-            })
+            .where('playerid', id)
             .update(newPlayerFields)
     }
 }

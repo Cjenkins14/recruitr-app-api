@@ -87,7 +87,8 @@ playerRouter
             .catch(next)
     })
     .get((req, res, next) => {
-        const { player } = req.body
+        const { player } = req
+
         res.json({
             id: player.playerid,
             name: player.name,
@@ -105,5 +106,66 @@ playerRouter
             note: player.note,
             schoolid: player.schoolid
         })
+    })
+    .delete((req, res, next) => {
+        PlayerService.deletePlayer(
+            req.app.get('db'),
+            req.params.player_id
+        )
+            .then(numRowsAffected => {
+                res.status(204).end()
+            })
+    })
+    .patch(jsonParser, (req, res, next) => {
+        const {
+            name,
+            graddate,
+            position,
+            batthrow,
+            date,
+            phone,
+            url,
+            dash,
+            platefirst,
+            turntime,
+            exitvelo,
+            poptime,
+            notes,
+            schoolid
+        } = req.body
+        const playerUpdate = {
+            name,
+            graddate,
+            position,
+            batthrow,
+            date,
+            phone,
+            url,
+            dash,
+            platefirst,
+            turntime,
+            exitvelo,
+            poptime,
+            notes,
+            schoolid
+        }
+        const numberOfValues = Object.values(playerUpdate).filter(Boolean).length
+
+        if (numberOfValues === 0) {
+            return res.status(400).json({
+                error: {
+                    message: `Request body must contain a new value`
+                }
+            })
+        }
+        PlayerService.updatePlayer(
+            req.app.get('db'),
+            req.params.player_id,
+            playerUpdate
+        )
+            .then(numRowsAffected => {
+                res.status(204).end()
+            })
+            .catch(next)
     })
 module.exports = playerRouter;
