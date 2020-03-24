@@ -198,11 +198,11 @@ describe('Player endpoints', () => {
         })
     })
 
-    describe.only('POST /player', () => {
+    describe('POST /player', () => {
         const testSchools = makeSchoolsArray()
         const testPlayers = makePlayersArray()
 
-        before('insert schools', (done) => {
+        beforeEach('insert schools', (done) => {
             db
                 .into('schools')
                 .insert(testSchools)
@@ -215,7 +215,7 @@ describe('Player endpoints', () => {
                 position: "Center Field",
                 batthrow: "Bat",
                 date: "2020-03-20T05:00:00.000Z",
-                phone: 9725555555,
+                phone: '9725555555',
                 url: "https://www.youtube.com/watch?v=7WfVREOHaAk",
                 dash: 3,
                 platefirst: 3,
@@ -223,7 +223,7 @@ describe('Player endpoints', () => {
                 exitvelo: 3,
                 poptime: 3,
                 notes: 'note',
-                schoolid: 3
+                schoolid: 1
             }
 
             return supertest(app)
@@ -245,11 +245,7 @@ describe('Player endpoints', () => {
                     expect(res.body.poptime).to.eql(newPlayer.poptime)
                     expect(res.body.schoolid).to.eql(newPlayer.schoolid)
                 })
-                .then(res =>
-                    supertest(app)
-                        .get(`/player/${res.body.id}`)
-                        .expect(res.body)
-                )
+
         })
     })
 })

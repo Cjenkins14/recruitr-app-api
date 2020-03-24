@@ -39,24 +39,30 @@ playerRouter
             position,
             batthrow,
             date,
+            phone,
+            url,
             dash,
             platefirst,
             turntime,
             exitvelo,
-            poptime
+            poptime,
+            notes
         } = req.body
         const newPlayer = {
             name,
             graddate,
             position,
             batthrow,
+            phone,
+            url,
             date,
             dash,
             platefirst,
             turntime,
             exitvelo,
             poptime,
-            schoolid
+            schoolid,
+            notes
         }
         for (const [key, value] of Object.entries(newPlayer))
             if (value == null)
@@ -89,6 +95,7 @@ playerRouter
                 }
                 req.player = player
                 next()
+                console.log('player', player)
             })
             .catch(next)
     })
