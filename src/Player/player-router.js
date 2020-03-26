@@ -25,7 +25,7 @@ playerRouter
                     turntime: player.turntime,
                     exitvelo: player.exitvelo,
                     poptime: player.poptime,
-                    notes: player.note,
+                    notes: player.notes,
                     schoolid: player.schoolid
                 })))
             })
