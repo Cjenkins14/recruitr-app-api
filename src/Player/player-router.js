@@ -177,7 +177,6 @@ playerRouter
             playerUpdate
         )
             .then(player => {
-                console.log(player.playerid)
                 res
                     .status(200)
                     .json(player)

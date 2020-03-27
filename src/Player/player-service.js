@@ -21,6 +21,7 @@ const PlayerService = {
         return knex('player_info')
             .where('playerid', id)
             .update(newPlayerFields)
+            .returning('*')
     }
 }
 
