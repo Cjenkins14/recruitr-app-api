@@ -103,7 +103,7 @@ playerRouter
         const { player } = req
 
         res.json({
-            id: player.playerid,
+            playerid: player.playerid,
             name: player.name,
             graddate: player.graddate,
             position: player.position,
@@ -116,7 +116,7 @@ playerRouter
             turntime: player.turntime,
             exitvelo: player.exitvelo,
             poptime: player.poptime,
-            note: player.note,
+            note: player.notes,
             schoolid: player.schoolid
         })
     })
@@ -176,8 +176,11 @@ playerRouter
             req.params.player_id,
             playerUpdate
         )
-            .then(numRowsAffected => {
-                res.status(200).end()
+            .then(player => {
+                console.log(player.playerid)
+                res
+                    .status(200)
+                    .json(player)
             })
             .catch(next)
     })
