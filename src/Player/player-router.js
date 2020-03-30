@@ -64,10 +64,18 @@ playerRouter
             schoolid,
             notes
         }
-        for (const [key, value] of Object.entries(newPlayer))
+        const reqValues = {
+            name,
+            graddate,
+            position,
+            batthrow,
+            date,
+            schoolid
+        }
+        for (const [key, value] of Object.entries(reqValues))
             if (value == null)
                 return res.status(400).json({
-                    error: { message: `Missing ${key} in request body` }
+                    error: { message: `Missing required ${key} in request body` }
                 })
         PlayerService.insertPlayer(
             req.app.get('db'),
