@@ -1,26 +1,25 @@
-# Express Boilerplate!
+# Recruitr API
 
-This is a boilerplate project used for starting new projects!
+## Summary
+The Recruitr API was design to store information regarding prospects for college sports recruiters.
+Users are able to store contact information, player's stats as well as their school information. 
 
-## Set up
+### Technologies
+This API Utilizes React, Node.js, PostgreSQL, and Express.
 
-Complete the following steps to start a new project (NEW-PROJECT-NAME):
+### Endpoints
+'/player': 
+Used for GET and POST methods allowing you to view all the players in the database and create new players.
 
-1. Clone this repository to your local machine `git clone BOILERPLATE-URL NEW-PROJECTS-NAME`
-2. `cd` into the cloned repository
-3. Make a fresh start of the git history for this project with `rm -rf .git && git init`
-4. Install the node dependencies `npm install`
-5. Move the example Environment file to `.env` that will be ignored by git and read by the express server `mv example.env .env`
-6. Edit the contents of the `package.json` to use NEW-PROJECT-NAME instead of `"name": "express-boilerplate",`
+'/player/:id':
+Used for GET, PATCH and DELETE methods allowing you to view the information on a specified player,
+edit that information and delete the player.
 
-## Scripts
+'/school':
+Used for GET method allowing you to view all the schools in the database.
 
-Start the application `npm start`
+'/school/add':
+Used for POST method allowing you to create a new school in the database.
 
-Start nodemon for the application `npm run dev`
-
-Run the tests `npm test`
-
-## Deploying
-
-When your new project is ready for deployment, add a new Heroku application with `heroku create`. This will make a new git remote called "heroku" and you can then `npm run deploy` which will push to this remote's master branch.
+'/school/:id':
+Used for DELETE method allowing you to remove a school and the corresponding players for the school from the database.
