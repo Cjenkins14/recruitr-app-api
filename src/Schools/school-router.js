@@ -70,16 +70,15 @@ schoolRouter
                         error: { message: 'School does not exist' }
                     })
                 }
+
+                const { school } = res;
+                console.log('res', res)
+                console.log(res.body)
+                res.json({
+                    // id: school.id,
+                    // name: school.name,
+                })
             })
-        const { school } = res;
-        console.log('res', res)
-        res.json({
-            id: school.id,
-            name: school.name,
-            playerid: school.playerid,
-            graddate: school.graddate,
-            position: school.position
-        })
     })
 
     .delete((req, res, next) => {
