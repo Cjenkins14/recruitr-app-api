@@ -63,21 +63,29 @@ schoolRouter
             req.params.school_id
         )
 
-            .then(res => {
+            .then(Response => {
 
-                if (!res) {
+                if (!Response) {
                     return res.status(404).json({
                         error: { message: 'School does not exist' }
                     })
                 }
 
-                let school = res.find(school => school.id === Number(req.params.school_id))
+                let school = Response.find(school => school.id === Number(req.params.school_id))
                 console.log(school)
                 res.json({
                     id: school.id,
                     name: school.name,
                     playerid: school.playerid,
                     graddate: school.graddate,
+                    position: school.position,
+                    batthrow: school.batthrow,
+                    platefirst: school.platefirst,
+                    turntime: school.turntime,
+                    exitvelo: school.exitvelo,
+                    poptime: school.poptime,
+                    notes: school.notes,
+                    schoolid: school.schoolid
                 })
             })
     })
