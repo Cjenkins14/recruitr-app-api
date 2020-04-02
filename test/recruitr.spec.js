@@ -83,7 +83,7 @@ describe('School endpoints', function () {
             }
 
             return supertest(app)
-                .post('/school/add')
+                .post('/school')
                 .send(newSchool)
                 .expect(201)
                 .expect(res => {
@@ -108,7 +108,7 @@ describe('School endpoints', function () {
             })
 
             return supertest(app)
-                .post('/school/add')
+                .post('/school')
                 .send(missingField)
                 .expect(400, { error: { message: 'Missing school name in request body' } })
         })
