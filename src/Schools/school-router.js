@@ -71,17 +71,15 @@ schoolRouter
                     })
                 }
             })
-            .then(res => {
-
-                console.log('res', res)
-                res.json({
-                    id: school.id,
-                    name: school.name,
-                    playerid: school.playerid,
-                    graddate: school.graddate,
-                    position: school.position
-                })
-            })
+        const { school } = res;
+        console.log('res', res)
+        res.json({
+            id: school.id,
+            name: school.name,
+            playerid: school.playerid,
+            graddate: school.graddate,
+            position: school.position
+        })
     })
 
     .delete((req, res, next) => {
