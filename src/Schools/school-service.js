@@ -14,7 +14,7 @@ const SchoolService = {
         return knex.from('schools').select('*').where('id', id).first()
     },
     getSchoolPlayer(knex, id) {
-        return knex.from('schools').join('player_info', 'schools.id', 'player_info.playerid').where('schools.id', id)
+        return knex.from('schools').innerJoin('player_info', 'schools.id', 'player_info.playerid').where('schools.id', id)
     },
     deleteSchool(knex, id) {
         return knex('schools')

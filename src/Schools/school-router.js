@@ -71,12 +71,13 @@ schoolRouter
                     })
                 }
 
-                const { school } = res;
-                console.log('res', res)
-                console.log(res.body)
+                let school = res.find(school => school.id === Number(req.params.school_id))
+                console.log(school)
                 res.json({
-                    // id: school.id,
-                    // name: school.name,
+                    id: school.id,
+                    name: school.name,
+                    playerid: school.playerid,
+                    graddate: school.graddate,
                 })
             })
     })
