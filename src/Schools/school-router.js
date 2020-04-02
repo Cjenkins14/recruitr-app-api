@@ -1,6 +1,5 @@
 const express = require('express')
 const SchoolService = require('./school-service')
-const path = require('path')
 const schoolRouter = express.Router()
 const jsonParser = express.json()
 
@@ -59,12 +58,32 @@ schoolRouter
             .catch(next)
     })
     .get((req, res, next) => {
-        const { school } = req;
-        res.json({
-            id: school.id,
-            name: school.name
-        })
+        SchoolService.getSchoolPlayer(
+            req.app.get('db'),
+            req.params.school_id
+        )
+
+            .then(res => {
+
+                if (!res) {
+                    return res.status(404).json({
+                        error: { message: 'School does not exist' }
+                    })
+                }
+            })
+            .then(res => {
+
+                console.log('res', res)
+                res.json({
+                    id: school.id,
+                    name: school.name,
+                    playerid: school.playerid,
+                    graddate: school.graddate,
+                    position: school.position
+                })
+            })
     })
+
     .delete((req, res, next) => {
         SchoolService.deleteSchool(
             req.app.get('db'),
