@@ -93,32 +93,46 @@ playerRouter
                         error: { message: 'Player does not exist' }
                     })
                 }
-                req.player = player
+                req.player = player;
                 next()
-                console.log('player', player)
             })
             .catch(next)
     })
     .get((req, res, next) => {
-        const { player } = req
+        PlayerService.getPlayerSchool(
+            req.app.get('db'),
+            req.params.player_id
+        )
+            .then(Response => {
+                if (!Response) {
+                    return res.status(404).json({
+                        error: { message: 'Player does not exist' }
+                    })
+                }
 
-        res.json({
-            playerid: player.playerid,
-            name: player.name,
-            graddate: player.graddate,
-            position: player.position,
-            batthrow: player.batthrow,
-            date: player.date,
-            phone: player.phone,
-            url: player.url,
-            dash: player.dash,
-            platefirst: player.platefirst,
-            turntime: player.turntime,
-            exitvelo: player.exitvelo,
-            poptime: player.poptime,
-            note: player.notes,
-            schoolid: player.schoolid
-        })
+                const player = Response.find(newPlayer => newPlayer.playerid === Number(req.params.player_id));
+                console.log(player)
+                res.json({
+                    playerid: player.playerid,
+                    name: player.name,
+                    schoolname: player.schoolname,
+                    graddate: player.graddate,
+                    position: player.position,
+                    batthrow: player.batthrow,
+                    date: player.date,
+                    phone: player.phone,
+                    url: player.url,
+                    dash: player.dash,
+                    platefirst: player.platefirst,
+                    turntime: player.turntime,
+                    exitvelo: player.exitvelo,
+                    poptime: player.poptime,
+                    note: player.notes,
+                    schoolid: player.schoolid
+                })
+            })
+
+
     })
     .delete((req, res, next) => {
         PlayerService.deletePlayer(

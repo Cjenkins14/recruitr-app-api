@@ -5,6 +5,9 @@ const PlayerService = {
     getById(knex, id) {
         return knex.from('player_info').select('*').where('playerid', id).first()
     },
+    getPlayerSchool(knex, id) {
+        return knex.select('*').from('player_info').innerJoin('schools', 'player_info.schoolid', 'schools.id').where('playerid', id)
+    },
     insertPlayer(knex, newPlayer) {
         return knex
             .insert(newPlayer)

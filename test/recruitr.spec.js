@@ -87,7 +87,7 @@ describe('School endpoints', function () {
                 .send(newSchool)
                 .expect(201)
                 .expect(res => {
-                    expect(res.body.name).to.eql(newSchool.name)
+                    expect(res.body.name).to.eql(newSchool.schoolname)
                 })
                 .then(res => {
                     supertest(app)

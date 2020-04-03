@@ -11,7 +11,7 @@ schoolRouter
             .then(schools => {
                 res.json(schools.map(school => ({
                     id: school.id,
-                    name: school.name
+                    schoolname: school.schoolname
                 })))
             })
             .catch(next)
@@ -71,22 +71,9 @@ schoolRouter
                     })
                 }
 
-                let school = Response.find(school => school.id === Number(req.params.school_id))
+                let school = Response.filter(school => school.id === Number(req.params.school_id))
                 console.log(school)
-                res.json({
-                    id: school.id,
-                    name: school.name,
-                    playerid: school.playerid,
-                    graddate: school.graddate,
-                    position: school.position,
-                    batthrow: school.batthrow,
-                    platefirst: school.platefirst,
-                    turntime: school.turntime,
-                    exitvelo: school.exitvelo,
-                    poptime: school.poptime,
-                    notes: school.notes,
-                    schoolid: school.schoolid
-                })
+                res.json(school)
             })
     })
 
