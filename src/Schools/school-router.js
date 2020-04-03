@@ -17,11 +17,11 @@ schoolRouter
             .catch(next)
     })
     .post(jsonParser, (req, res, next) => {
-        const { name } = req.body
+        const { schoolname } = req.body
         const newSchool = {
-            name
+            schoolname
         }
-        if (name == null) {
+        if (schoolname == null) {
             return res.status(400).json({
                 error: { message: 'Missing school name in request body' }
             })

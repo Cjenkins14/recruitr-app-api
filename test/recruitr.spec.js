@@ -31,7 +31,7 @@ describe('School endpoints', function () {
                     .insert(testSchools)
             })
 
-            it('responds with 200 and all of the articles', () => {
+            it('responds with 200 and all of the schools', () => {
                 return supertest(app)
                     .get('/school')
                     .expect(200, testSchools)
@@ -58,7 +58,7 @@ describe('School endpoints', function () {
                     .insert(testSchools)
             })
 
-            it('responds with 200 and the specified folder', () => {
+            it('responds with 200 and the specified school', () => {
                 const schoolId = 2
                 const expectedSchool = testSchools[schoolId - 1]
                 return supertest(app)
@@ -68,7 +68,7 @@ describe('School endpoints', function () {
         })
     })
 
-    describe('POST /school/add', () => {
+    describe('POST /school', () => {
         const testSchools = makeSchoolsArray()
 
         before('insert schools', () => {
@@ -79,7 +79,7 @@ describe('School endpoints', function () {
 
         it('creates a schools, responds with 201 and new school', () => {
             const newSchool = {
-                name: 'post test school'
+                schoolname: 'post test school'
             }
 
             return supertest(app)
@@ -87,7 +87,7 @@ describe('School endpoints', function () {
                 .send(newSchool)
                 .expect(201)
                 .expect(res => {
-                    expect(res.body.name).to.eql(newSchool.schoolname)
+                    expect(res.body.schoolname).to.eql(newSchool.schoolname)
                 })
                 .then(res => {
                     supertest(app)

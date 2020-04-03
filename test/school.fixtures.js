@@ -2,15 +2,15 @@ function makeSchoolsArray() {
     return [
         {
             id: 1,
-            name: 'DHS'
+            schoolname: 'DHS'
         },
         {
             id: 2,
-            name: 'RHS'
+            schoolname: 'RHS'
         },
         {
             id: 3,
-            name: 'GHS'
+            schoolname: 'GHS'
         }
     ]
 }
