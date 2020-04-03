@@ -72,7 +72,6 @@ schoolRouter
                 }
 
                 let school = Response.filter(school => school.id === Number(req.params.school_id))
-                console.log(school)
                 res.json(school)
             })
     })

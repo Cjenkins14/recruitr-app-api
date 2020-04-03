@@ -111,7 +111,6 @@ playerRouter
                 }
 
                 const player = Response.find(newPlayer => newPlayer.playerid === Number(req.params.player_id));
-                console.log(player)
                 res.json({
                     playerid: player.playerid,
                     name: player.name,

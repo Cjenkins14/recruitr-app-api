@@ -49,23 +49,6 @@ describe('School endpoints', function () {
             })
         })
 
-        context('Given there are schools in the database', () => {
-            const testSchools = makeSchoolsArray()
-
-            beforeEach('insert schools', () => {
-                return db
-                    .into('schools')
-                    .insert(testSchools)
-            })
-
-            it('responds with 200 and the specified school', () => {
-                const schoolId = 2
-                const expectedSchool = testSchools[schoolId - 1]
-                return supertest(app)
-                    .get(`/school/${schoolId}`)
-                    .expect(200, expectedSchool)
-            })
-        })
     })
 
     describe('POST /school', () => {
